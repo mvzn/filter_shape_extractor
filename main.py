@@ -38,9 +38,6 @@ sr = 44100
 # extract stft out of the dataset
 stft = e.extract_stft(DATA_F, sr, FFT_N, MEL_N, MFCC_N, SAMPLE_N, SILENCE_LEVEL, USE_HDB, CLUSTERS_N)
 
-# run folder of audio files through FFT filtering
-sample_stft_list = stf.process_audio_samples(SAMPLE_F, stft, FFT_N, SAMPLE_N)
-
 # export windows for puredata
 wf.export_windows(FFT_N, "Windows")
 

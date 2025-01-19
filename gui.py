@@ -38,7 +38,7 @@ def run_setup_gui():
         config_data['SAMPLE_N'] = sample_n.get()
         config_data['SILENCE_LEVEL'] = silence_level.get()
         config_data['USE_HDB'] = use_hdb.get()
-        config_data['CLUSTER_N'] = clusters_n.get()
+        config_data['CLUSTERS_N'] = clusters_n.get()
         
         # Close the GUI after submission
         root.destroy()

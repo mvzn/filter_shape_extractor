@@ -16,7 +16,9 @@ def run_setup_gui():
         'MEL_N': None,
         'MFCC_N': None,
         'SAMPLE_N': None,
-        'SILENCE_LEVEL': None
+        'SILENCE_LEVEL': None,
+        'USE_HDB': None,
+        'CLUSTER_N': None
     }
 
     def browse_directory(var):
@@ -30,12 +32,13 @@ def run_setup_gui():
     def submit():
         # Store the values in config_data
         config_data['DATA_F'] = data_f.get()
-        config_data['SAMPLE_F'] = sample_f.get()
         config_data['FFT_N'] = fft_n.get()
         config_data['MEL_N'] = mel_n.get()
         config_data['MFCC_N'] = mfcc_n.get()
         config_data['SAMPLE_N'] = sample_n.get()
         config_data['SILENCE_LEVEL'] = silence_level.get()
+        config_data['USE_HDB'] = use_hdb.get()
+        config_data['CLUSTER_N'] = clusters_n.get()
         
         # Close the GUI after submission
         root.destroy()
@@ -46,12 +49,13 @@ def run_setup_gui():
 
     # Variables
     data_f         = tk.StringVar(value="C:/Users/user/dataset_folder")
-    sample_f       = tk.StringVar(value="C:/Users/user/sample_folder")
     fft_n          = tk.IntVar(value=4096)
     mel_n          = tk.IntVar(value=128)
     mfcc_n         = tk.IntVar(value=20)
     sample_n       = tk.IntVar(value=30000)
     silence_level  = tk.DoubleVar(value=.7)
+    use_hdb       = tk.BooleanVar(value=True)
+    clusters_n     = tk.IntVar(value=10)
 
 
     # ----- DATA_F -----
@@ -62,13 +66,6 @@ def run_setup_gui():
     ttk.Button(frame_data_f, text="Browse", 
                command=lambda: browse_directory(data_f)).pack(side='left', padx=(5,0))
 
-    # ----- SAMPLE_F -----
-    frame_sample_f = ttk.Frame(root)
-    frame_sample_f.pack(padx=10, pady=5, fill='x')
-    ttk.Label(frame_sample_f, text="Sample Folder Path:").pack(side='left', padx=(0,5))
-    ttk.Entry(frame_sample_f, textvariable=sample_f, width=60).pack(side='left', fill='x', expand=True)
-    ttk.Button(frame_sample_f, text="Browse", 
-               command=lambda: browse_directory(sample_f)).pack(side='left', padx=(5,0))
 
     # ----- FFT_N -----
     frame_fft_n = ttk.Frame(root)
@@ -99,6 +96,18 @@ def run_setup_gui():
     frame_silence_level.pack(padx=10, pady=5, fill='x')
     ttk.Label(frame_silence_level, text="Silence Threshold:").pack(side='left', padx=(0,5))
     ttk.Entry(frame_silence_level, textvariable=silence_level, width=10).pack(side='left', padx=(0,5))
+
+    # ----- USE_HDB -----
+    frame_use_hdb = ttk.Frame(root)
+    frame_use_hdb.pack(padx=10, pady=5, fill='x')
+    ttk.Label(frame_use_hdb, text="Use HDB?:").pack(side='left', padx=(0,5))
+    ttk.Checkbutton(frame_use_hdb, variable=use_hdb, width=10).pack(side='left', padx=(0,5))
+
+    # ----- CLUSTERS_N -----
+    frame_clusters_n = ttk.Frame(root)
+    frame_clusters_n.pack(padx=10, pady=5, fill='x')
+    ttk.Label(frame_clusters_n, text="Number of Clusters:").pack(side='left', padx=(0,5))
+    ttk.Entry(frame_clusters_n, textvariable=clusters_n, width=10).pack(side='left', padx=(0,5))
 
     # ----- SUBMIT BUTTON -----
     ttk.Button(root, text="Submit", command=submit).pack(padx=10, pady=10)

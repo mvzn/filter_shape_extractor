@@ -371,7 +371,7 @@ def extract_stft(
     # Export each cluster's STFT
     export_stft_tables(stft_magnitude_normalized, n_fft, n_mels, n_mfcc, num_clusters, num_samples)
 
-    print(f"STFT was extracted. Tables were exported to /STFTs/") #stft_{n_fft}_{n_mels}_{n_mfcc}_{num_samples}
+    print(f"STFT was extracted. Tables were exported to /STFTs/") 
     return stft_magnitude_normalized
 
 

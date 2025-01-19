@@ -5,39 +5,42 @@
 ## environment due to conflicting dependencies.
 
 import extractor as e
-import stft_filter as stf
 import window_utils as wf
-import loudness_uniform as lu
 import gui
 
+# 1. Run the setup GUI to get user inputs:
+user_config = gui.run_setup_gui()
+
+# 2. Map them to your local variables (or just use user_config dict directly)
+DATA_F        = user_config['DATA_F']
+SAMPLE_F      = user_config['SAMPLE_F']
+FFT_N         = int(user_config['FFT_N'])
+MEL_N         = int(user_config['MEL_N'])
+MFCC_N        = int(user_config['MFCC_N'])
+SAMPLE_N      = int(user_config['SAMPLE_N'])
+SILENCE_LEVEL = int(user_config['SILENCE_LEVEL'])
+USE_HDB       = bool(user_config['USE_HDB'])
+CLUSTERS_N    = int(user_config['CLUSTERS_N'])
 
 
-sr = 44100 
+print("DATA_F:", DATA_F)
+print("SAMPLE_F:", SAMPLE_F)
+print("FFT_N:", FFT_N)
+print("MEL_N:", MEL_N)
+print("MFCC_N:", MFCC_N)
+print("SAMPLE_N:", SAMPLE_N)
+print("SILENCE_LEVEL:", SILENCE_LEVEL)
+print("USE_HDB:", USE_HDB)
+print("CLUSTERS_N:", CLUSTERS_N)
 
-FFT_N = 4096
-
-MEL_N = 128
-
-MFCC_N = 40
-
-SIL_TH = 0.7
-
-SAMPLE_N = 30000
-
-
-CHOIR_F = r'C:/Users/markm/Desktop/New_Choir_Dataset/'
-ARABIC_F = r'C:/Users/markm/Desktop/arabic_speech_corpus/'
-MUSICNET_F = r'C:/Users/markm/Desktop/musicnet dataset'
-SAMPLE_F = r'C:/Users/markm/.conda/envs/Dataset_STFT_Filtering_conda/samples'
-
+sr = 44100
 
 # extract stft out of the dataset
-stft = e.extract_stft(MUSICNET_F, sr, 4096, MEL_N, 20, SAMPLE_N, SIL_TH, True)
+stft = e.extract_stft(DATA_F, sr, FFT_N, MEL_N, MFCC_N, SAMPLE_N, SILENCE_LEVEL, USE_HDB, CLUSTERS_N)
 
 # run folder of audio files through FFT filtering
-sample_stft_list = stf.process_audio_samples(SAMPLE_F, stft, 4096, SAMPLE_N)
-
+sample_stft_list = stf.process_audio_samples(SAMPLE_F, stft, FFT_N, SAMPLE_N)
 
 # export windows for puredata
-#wf.export_windows(FFT_N, "Windows")
+wf.export_windows(FFT_N, "Windows")
 

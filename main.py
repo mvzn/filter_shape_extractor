@@ -18,7 +18,7 @@ FFT_N         = int(user_config['FFT_N'])
 MEL_N         = int(user_config['MEL_N'])
 MFCC_N        = int(user_config['MFCC_N'])
 SAMPLE_N      = int(user_config['SAMPLE_N'])
-SILENCE_LEVEL = int(user_config['SILENCE_LEVEL'])
+SILENCE_LEVEL = float(user_config['SILENCE_LEVEL'])
 USE_HDB       = bool(user_config['USE_HDB'])
 CLUSTERS_N    = int(user_config['CLUSTERS_N'])
 
